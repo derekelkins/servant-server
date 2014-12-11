@@ -19,35 +19,34 @@
 <a name="line-10"></a>  <span class='hs-layout'>,</span> <span class='hs-comment'>-- * Handlers for all standard combinators</span>
 <a name="line-11"></a>    <span class='hs-conid'>HasServer</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span>
 <a name="line-12"></a>
-<a name="line-13"></a>  <span class='hs-layout'>,</span> <span class='hs-keyword'>module</span> <span class='hs-conid'>Servant</span><span class='hs-varop'>.</span><span class='hs-conid'>API</span>
-<a name="line-14"></a>  <span class='hs-layout'>,</span> <span class='hs-keyword'>module</span> <span class='hs-conid'>Servant</span><span class='hs-varop'>.</span><span class='hs-conid'>Server</span><span class='hs-varop'>.</span><span class='hs-conid'>Internal</span>
-<a name="line-15"></a>  <span class='hs-layout'>)</span> <span class='hs-keyword'>where</span>
-<a name="line-16"></a>
-<a name="line-17"></a><span class='hs-keyword'>import</span> <span class='hs-conid'>Data</span><span class='hs-varop'>.</span><span class='hs-conid'>Proxy</span>
-<a name="line-18"></a><span class='hs-keyword'>import</span> <span class='hs-conid'>Network</span><span class='hs-varop'>.</span><span class='hs-conid'>Wai</span>
-<a name="line-19"></a><span class='hs-keyword'>import</span> <span class='hs-conid'>Servant</span><span class='hs-varop'>.</span><span class='hs-conid'>API</span>
-<a name="line-20"></a><span class='hs-keyword'>import</span> <span class='hs-conid'>Servant</span><span class='hs-varop'>.</span><span class='hs-conid'>Server</span><span class='hs-varop'>.</span><span class='hs-conid'>Internal</span>
-<a name="line-21"></a>
-<a name="line-22"></a><span class='hs-comment'>-- * Implementing Servers</span>
-<a name="line-23"></a>
-<a name="line-24"></a><a name="serve"></a><span class='hs-comment'>-- | 'serve' allows you to implement an API and produce a wai 'Application'.</span>
-<a name="line-25"></a><span class='hs-comment'>--</span>
-<a name="line-26"></a><span class='hs-comment'>-- Example:</span>
-<a name="line-27"></a><span class='hs-comment'>--</span>
-<a name="line-28"></a><span class='hs-comment'>-- &gt; type MyApi = "books" :&gt; Get [Book] -- GET /books</span>
-<a name="line-29"></a><span class='hs-comment'>-- &gt;         :&lt;|&gt; "books" :&gt; ReqBody Book :&gt; Post Book -- POST /books</span>
-<a name="line-30"></a><span class='hs-comment'>-- &gt;</span>
-<a name="line-31"></a><span class='hs-comment'>-- &gt; server :: Server MyApi</span>
-<a name="line-32"></a><span class='hs-comment'>-- &gt; server = listAllBooks :&lt;|&gt; postBook</span>
-<a name="line-33"></a><span class='hs-comment'>-- &gt;   where listAllBooks = ...</span>
-<a name="line-34"></a><span class='hs-comment'>-- &gt;         postBook book = ...</span>
-<a name="line-35"></a><span class='hs-comment'>-- &gt;</span>
-<a name="line-36"></a><span class='hs-comment'>-- &gt; app :: Application</span>
-<a name="line-37"></a><span class='hs-comment'>-- &gt; app = serve myApi server</span>
-<a name="line-38"></a><span class='hs-comment'>-- &gt;</span>
-<a name="line-39"></a><span class='hs-comment'>-- &gt; main :: IO ()</span>
-<a name="line-40"></a><span class='hs-comment'>-- &gt; main = Network.Wai.Handler.Warp.run 8080 app</span>
-<a name="line-41"></a><span class='hs-definition'>serve</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>HasServer</span> <span class='hs-varid'>layout</span> <span class='hs-keyglyph'>=&gt;</span> <span class='hs-conid'>Proxy</span> <span class='hs-varid'>layout</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Server</span> <span class='hs-varid'>layout</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Application</span>
-<a name="line-42"></a><span class='hs-definition'>serve</span> <span class='hs-varid'>p</span> <span class='hs-varid'>server</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>toApplication</span> <span class='hs-layout'>(</span><span class='hs-varid'>route</span> <span class='hs-varid'>p</span> <span class='hs-varid'>server</span><span class='hs-layout'>)</span>
+<a name="line-13"></a>  <span class='hs-layout'>,</span> <span class='hs-conid'>Server</span><span class='hs-layout'>(</span><span class='hs-keyglyph'>..</span><span class='hs-layout'>)</span>
+<a name="line-14"></a>  <span class='hs-layout'>)</span> <span class='hs-keyword'>where</span>
+<a name="line-15"></a>
+<a name="line-16"></a><span class='hs-keyword'>import</span> <span class='hs-conid'>Data</span><span class='hs-varop'>.</span><span class='hs-conid'>Proxy</span>
+<a name="line-17"></a><span class='hs-keyword'>import</span> <span class='hs-conid'>Network</span><span class='hs-varop'>.</span><span class='hs-conid'>Wai</span>
+<a name="line-18"></a><span class='hs-keyword'>import</span> <span class='hs-conid'>Servant</span><span class='hs-varop'>.</span><span class='hs-conid'>API</span>
+<a name="line-19"></a><span class='hs-keyword'>import</span> <span class='hs-conid'>Servant</span><span class='hs-varop'>.</span><span class='hs-conid'>Server</span><span class='hs-varop'>.</span><span class='hs-conid'>Internal</span>
+<a name="line-20"></a>
+<a name="line-21"></a><span class='hs-comment'>-- * Implementing Servers</span>
+<a name="line-22"></a>
+<a name="line-23"></a><a name="serve"></a><span class='hs-comment'>-- | 'serve' allows you to implement an API and produce a wai 'Application'.</span>
+<a name="line-24"></a><span class='hs-comment'>--</span>
+<a name="line-25"></a><span class='hs-comment'>-- Example:</span>
+<a name="line-26"></a><span class='hs-comment'>--</span>
+<a name="line-27"></a><span class='hs-comment'>-- &gt; type MyApi = "books" :&gt; Get [Book] -- GET /books</span>
+<a name="line-28"></a><span class='hs-comment'>-- &gt;         :&lt;|&gt; "books" :&gt; ReqBody Book :&gt; Post Book -- POST /books</span>
+<a name="line-29"></a><span class='hs-comment'>-- &gt;</span>
+<a name="line-30"></a><span class='hs-comment'>-- &gt; server :: Server MyApi</span>
+<a name="line-31"></a><span class='hs-comment'>-- &gt; server = listAllBooks :&lt;|&gt; postBook</span>
+<a name="line-32"></a><span class='hs-comment'>-- &gt;   where listAllBooks = ...</span>
+<a name="line-33"></a><span class='hs-comment'>-- &gt;         postBook book = ...</span>
+<a name="line-34"></a><span class='hs-comment'>-- &gt;</span>
+<a name="line-35"></a><span class='hs-comment'>-- &gt; app :: Application</span>
+<a name="line-36"></a><span class='hs-comment'>-- &gt; app = serve myApi server</span>
+<a name="line-37"></a><span class='hs-comment'>-- &gt;</span>
+<a name="line-38"></a><span class='hs-comment'>-- &gt; main :: IO ()</span>
+<a name="line-39"></a><span class='hs-comment'>-- &gt; main = Network.Wai.Handler.Warp.run 8080 app</span>
+<a name="line-40"></a><span class='hs-definition'>serve</span> <span class='hs-keyglyph'>::</span> <span class='hs-conid'>HasServer</span> <span class='hs-varid'>layout</span> <span class='hs-keyglyph'>=&gt;</span> <span class='hs-conid'>Proxy</span> <span class='hs-varid'>layout</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Server</span> <span class='hs-varid'>layout</span> <span class='hs-keyglyph'>-&gt;</span> <span class='hs-conid'>Application</span>
+<a name="line-41"></a><span class='hs-definition'>serve</span> <span class='hs-varid'>p</span> <span class='hs-varid'>server</span> <span class='hs-keyglyph'>=</span> <span class='hs-varid'>toApplication</span> <span class='hs-layout'>(</span><span class='hs-varid'>route</span> <span class='hs-varid'>p</span> <span class='hs-varid'>server</span><span class='hs-layout'>)</span>
 </pre></body>
 </html>
